@@ -1,8 +1,6 @@
 function RunJsonScenariosOrchestrator {
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory = $true, HelpMessage = "The URL of the SharePoint site where the operations will be executed.")]
-        [string]$SiteUrl,
 
         [Parameter(Mandatory = $true, HelpMessage = "The file path that contains the JSON actions and parameters to be executed.")]
         [string]$JsonPath
@@ -12,9 +10,6 @@ function RunJsonScenariosOrchestrator {
     # VALIDATION BLOCK
     # ---------------
     
-    if ([string]::IsNullOrEmpty($SiteUrl)) {
-        Write-Error "Site collection url is not provided!" -ErrorAction Stop
-    }
 
     if ([string]::IsNullOrEmpty($JsonPath)) {
         Write-Error "JsonPath is not provided!" -ErrorAction Stop
@@ -67,7 +62,7 @@ function RunJsonScenariosOrchestrator {
             $sectionJsonPath = [System.IO.Path]::GetFullPath($sectionJsonPath)
         
             # Execute the orchestrator for the section
-            $result = RunJsonScenariosOrchestrator -SiteUrl $SiteUrl -JsonPath $sectionJsonPath
+            $result = RunJsonScenariosOrchestrator -JsonPath $sectionJsonPath
             if ($result -eq "failed") {
                 Write-Host "Aborting due to failure in a nested section." -ForegroundColor Red
                 return "failed"
