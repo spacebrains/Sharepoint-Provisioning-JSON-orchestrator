@@ -1,0 +1,1458 @@
+{
+    "type": "object",
+    "properties": {
+        "shortDelay": {
+            "type": "integer"
+        },
+        "retryAfterMs": {
+            "type": "integer"
+        },
+        "actions": {
+            "items": {
+                "oneOf": [
+                    {
+                        "required": ["type", "path"],
+                        "properties": {
+                            "path": {
+                                "description": "Path to the configuration file.",
+                                "type": "string"
+                            },
+                            "type": {
+                                "enum": ["Section"],
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "comment"],
+                        "properties": {
+                            "comment": {
+                                "description": "Text of comment",
+                                "type": "string"
+                            },
+                            "type": {
+                                "enum": ["Comment"],
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "name", "parentFolderPath"],
+                        "properties": {
+                            "parentFolderPath": {
+                                "description": "The relative URL of the parent folder where the new folder will be created.",
+                                "type": "string"
+                            },
+                            "type": {
+                                "enum": ["AddFolder"],
+                                "type": "string"
+                            },
+                            "name": {
+                                "description": "The name of the new folder to create.",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type"],
+                        "properties": {
+                            "shortDelay": {
+                                "description": "Short delay between item additions in milliseconds.",
+                                "maximum": 2147483647,
+                                "minimum": 0,
+                                "type": "integer"
+                            },
+                            "retryAfterMs": {
+                                "description": "Interval between retry attempts in milliseconds.",
+                                "maximum": 2147483647,
+                                "minimum": 0,
+                                "type": "integer"
+                            },
+                            "data": {
+                                "$ref": "./Schemes/AddListItemsWithLookupsData.schema.json"
+                            },
+                            "type": {
+                                "enum": ["AddListItemsWithLookups"],
+                                "type": "string"
+                            },
+                            "attempts": {
+                                "description": "Maximum number of retry attempts for adding items.",
+                                "maximum": 2147483647,
+                                "minimum": 1,
+                                "type": "integer"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "listIdentity", "layoutType"],
+                        "properties": {
+                            "attempts": {
+                                "description": "Maximum number of retry attempts.",
+                                "maximum": 2147483647,
+                                "minimum": 1,
+                                "type": "integer"
+                            },
+                            "type": {
+                                "enum": ["ChangeTitleAreaInSitePages"],
+                                "type": "string"
+                            },
+                            "layoutType": {
+                                "description": "The layout type to be applied to the title area.",
+                                "enum": ["FullWidthImage", "NoImage", "ColorBlock", "CutInShape"],
+                                "type": "string"
+                            },
+                            "listIdentity": {
+                                "description": "The List Identity where the pages are located.",
+                                "type": "string"
+                            },
+                            "contentTypeIdentity": {
+                                "description": "Content Type Identity to filter pages.",
+                                "type": "string"
+                            },
+                            "retryAfterMs": {
+                                "description": "Interval between retry attempts in milliseconds.",
+                                "maximum": 2147483647,
+                                "minimum": 0,
+                                "type": "integer"
+                            },
+                            "shortDelay": {
+                                "description": "Short delay between operations in milliseconds.",
+                                "maximum": 2147483647,
+                                "minimum": 0,
+                                "type": "integer"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type"],
+                        "properties": {
+                            "type": {
+                                "enum": ["EnableRatingsFeature"],
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "name", "parentContentTypeId"],
+                        "properties": {
+                            "id": {
+                                "description": "The GUID of the content type in format without dashes.",
+                                "pattern": "^[a-fA-F0-9]{32}$",
+                                "type": "string"
+                            },
+                            "type": {
+                                "enum": ["EnsureContentType"],
+                                "type": "string"
+                            },
+                            "group": {
+                                "description": "The group the content type belongs to.",
+                                "type": "string"
+                            },
+                            "description": {
+                                "description": "The description of the content type.",
+                                "type": "string"
+                            },
+                            "parentContentTypeId": {
+                                "description": "The ID of the parent content type.\n\nExamples of base content type IDs:\n- Item: 0x01\n- Document: 0x0101\n- Event: 0x0102\n- Task: 0x0108\n- Message: 0x0107\n\nYou can also use IDs of custom content types if you are creating a child content type.",
+                                "type": "string"
+                            },
+                            "name": {
+                                "description": "The name of the content type.",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "contentTypeIdentity", "listIdentity"],
+                        "properties": {
+                            "listIdentity": {
+                                "description": "The list identity.",
+                                "type": "string"
+                            },
+                            "type": {
+                                "enum": ["EnsureContentTypeInList"],
+                                "type": "string"
+                            },
+                            "contentTypeIdentity": {
+                                "description": "The content Type Identity.",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "contentTypeIdentity", "fieldInternalNames"],
+                        "properties": {
+                            "attempts": {
+                                "description": "Maximum number of retry attempts for adding fields.",
+                                "maximum": 2147483647,
+                                "minimum": 1,
+                                "type": "integer"
+                            },
+                            "type": {
+                                "enum": ["EnsureFieldsInContentType"],
+                                "type": "string"
+                            },
+                            "updateChildren": {
+                                "description": "Flag to indicate whether to update child content types. Works only for latest versions. for 1.7.0 version updated by default",
+                                "type": "boolean"
+                            },
+                            "contentTypeIdentity": {
+                                "description": "The content Type Identity.",
+                                "type": "string"
+                            },
+                            "retryAfterMs": {
+                                "description": "Interval between retry attempts in milliseconds.",
+                                "maximum": 2147483647,
+                                "minimum": 0,
+                                "type": "integer"
+                            },
+                            "shortDelay": {
+                                "description": "Short delay between field additions in milliseconds.",
+                                "maximum": 2147483647,
+                                "minimum": 0,
+                                "type": "integer"
+                            },
+                            "fieldInternalNames": {
+                                "description": "Array of field internal names to be ensured.",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "listIdentity", "fieldInternalNames"],
+                        "properties": {
+                            "shortDelay": {
+                                "description": "Short delay between item additions in milliseconds.",
+                                "maximum": 2147483647,
+                                "minimum": 0,
+                                "type": "integer"
+                            },
+                            "type": {
+                                "enum": ["EnsureFieldsInList"],
+                                "type": "string"
+                            },
+                            "listIdentity": {
+                                "description": "The identity of the list.",
+                                "type": "string"
+                            },
+                            "attempts": {
+                                "description": "Maximum number of retry attempts for adding items.",
+                                "maximum": 2147483647,
+                                "minimum": 1,
+                                "type": "integer"
+                            },
+                            "retryAfterMs": {
+                                "description": "Interval between retry attempts in milliseconds.",
+                                "maximum": 2147483647,
+                                "minimum": 0,
+                                "type": "integer"
+                            },
+                            "fieldInternalNames": {
+                                "description": "Array of field internal names to be ensured.",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "listIdentity", "template", "url"],
+                        "properties": {
+                            "url": {
+                                "description": "Relative URL for the list.",
+                                "pattern": "^(?!http|/).*",
+                                "type": "string"
+                            },
+                            "listIdentity": {
+                                "description": "The identity of the list.",
+                                "type": "string"
+                            },
+                            "type": {
+                                "enum": ["EnsureList"],
+                                "type": "string"
+                            },
+                            "template": {
+                                "description": "Template for the list.",
+                                "enum": [
+                                    "NoListTemplate",
+                                    "GenericList",
+                                    "DocumentLibrary",
+                                    "Survey",
+                                    "Links",
+                                    "Announcements",
+                                    "Contacts",
+                                    "Events",
+                                    "Tasks",
+                                    "DiscussionBoard",
+                                    "PictureLibrary",
+                                    "DataSources",
+                                    "WebTemplateCatalog",
+                                    "UserInformation",
+                                    "WebPartCatalog",
+                                    "ListTemplateCatalog",
+                                    "XMLForm",
+                                    "MasterPageCatalog",
+                                    "NoCodeWorkflows",
+                                    "WorkflowProcess",
+                                    "WebPageLibrary",
+                                    "CustomGrid",
+                                    "SolutionCatalog",
+                                    "NoCodePublic",
+                                    "ThemeCatalog",
+                                    "DesignCatalog",
+                                    "AppDataCatalog",
+                                    "AppFilesCatalog",
+                                    "DataConnectionLibrary",
+                                    "WorkflowHistory",
+                                    "GanttTasks",
+                                    "HelpLibrary",
+                                    "AccessRequest",
+                                    "PromotedLinks",
+                                    "TasksWithTimelineAndHierarchy",
+                                    "MaintenanceLogs",
+                                    "Meetings",
+                                    "Agenda",
+                                    "MeetingUser",
+                                    "Decision",
+                                    "MeetingObjective",
+                                    "TextBox",
+                                    "ThingsToBring",
+                                    "HomePageLibrary",
+                                    "Posts",
+                                    "Comments",
+                                    "Categories",
+                                    "Facility",
+                                    "Whereabouts",
+                                    "CallTrack",
+                                    "Circulation",
+                                    "Timecard",
+                                    "Holidays",
+                                    "IMEDic",
+                                    "ExternalList",
+                                    "MySiteDocumentLibrary",
+                                    "IssueTracking",
+                                    "AdminTasks",
+                                    "HealthRules",
+                                    "HealthReports",
+                                    "DeveloperSiteDraftApps",
+                                    "ContentCenterModelLibrary",
+                                    "ContentCenterPrimeLibrary",
+                                    "ContentCenterSampleLibrary",
+                                    "AccessApp",
+                                    "AlchemyMobileForm",
+                                    "AlchemyApprovalWorkflow",
+                                    "SharingLinks",
+                                    "HashtagStore",
+                                    "RecipesTable",
+                                    "FormulasTable",
+                                    "WebTemplateExtensionsList",
+                                    "ItemReferenceCollection",
+                                    "ItemReferenceReference",
+                                    "ItemReferenceReferenceCollection",
+                                    "InvalidType"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "termGroupName", "termSetName", "termNames"],
+                        "properties": {
+                            "type": {
+                                "enum": ["EnsureTerms"],
+                                "type": "string"
+                            },
+                            "termNames": {
+                                "description": "Array of term names to be created.",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            "maxRetries": {
+                                "description": "Maximum number of retry attempts for term creation.",
+                                "type": "integer"
+                            },
+                            "termGroupName": {
+                                "description": "The name of the term group.",
+                                "type": "string"
+                            },
+                            "retryInterval": {
+                                "description": "Interval between retry attempts in milliseconds.",
+                                "type": "integer"
+                            },
+                            "termSetName": {
+                                "description": "The name of the term set.",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "contentTypeIdentity"],
+                        "properties": {
+                            "shortDelay": {
+                                "description": "Short delay between page publishing in milliseconds.",
+                                "maximum": 2147483647,
+                                "minimum": 0,
+                                "type": "integer"
+                            },
+                            "retryAfterMs": {
+                                "description": "Interval between retry attempts in milliseconds.",
+                                "maximum": 2147483647,
+                                "minimum": 0,
+                                "type": "integer"
+                            },
+                            "attempts": {
+                                "description": "Maximum number of retry attempts for publishing pages.",
+                                "maximum": 2147483647,
+                                "minimum": 1,
+                                "type": "integer"
+                            },
+                            "type": {
+                                "enum": ["PublishSitePagesByContentType"],
+                                "type": "string"
+                            },
+                            "contentTypeIdentity": {
+                                "description": "The identifier of the content type of the items to be published.",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": [
+                            "type",
+                            "listIdentity",
+                            "targetListIdentity",
+                            "lookupFieldInternalNames",
+                            "targetLookupFieldName"
+                        ],
+                        "properties": {
+                            "type": {
+                                "enum": ["ReflectLookups"],
+                                "type": "string"
+                            },
+                            "lookupFieldInternalNames": {
+                                "description": "Internal name of the lookup fields in the source list that need to be reflected to the target list.",
+                                "type": "string"
+                            },
+                            "contentTypeIdentity": {
+                                "description": "Content type identity of the items in the source list.",
+                                "type": "string"
+                            },
+                            "targetListIdentity": {
+                                "description": "The identity of the target list to which the lookup values will be reflected.",
+                                "type": "string"
+                            },
+                            "targetContentTypeIdentity": {
+                                "description": "Content type identity of the items in the target list.",
+                                "type": "string"
+                            },
+                            "targetLookupFieldName": {
+                                "description": "Internal name of the lookup field in the target list that will store the reflected lookup value from the source list.",
+                                "type": "string"
+                            },
+                            "listIdentity": {
+                                "description": "The identity of the source list from which the lookup values are taken.",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "contentTypeIdentity"],
+                        "properties": {
+                            "contentTypeIdentity": {
+                                "description": "The content Type Identity.",
+                                "type": "string"
+                            },
+                            "type": {
+                                "enum": ["RemoveContentType"],
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "contentTypeIdentity", "listIdentity"],
+                        "properties": {
+                            "listIdentity": {
+                                "description": "The list identity.",
+                                "type": "string"
+                            },
+                            "type": {
+                                "enum": ["RemoveContentTypeFromList"],
+                                "type": "string"
+                            },
+                            "contentTypeIdentity": {
+                                "description": "The content Type Identity.",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "contentTypeIdentity", "fieldInternalNames"],
+                        "properties": {
+                            "attempts": {
+                                "description": "Maximum number of retry attempts for removing fields.",
+                                "maximum": 2147483647,
+                                "minimum": 1,
+                                "type": "integer"
+                            },
+                            "type": {
+                                "enum": ["RemoveFieldsFromContentType"],
+                                "type": "string"
+                            },
+                            "doNotUpdateChildren": {
+                                "description": "Do not update child content types.",
+                                "type": "boolean"
+                            },
+                            "contentTypeIdentity": {
+                                "description": "The content Type Identity.",
+                                "type": "string"
+                            },
+                            "retryAfterMs": {
+                                "description": "Interval between retry attempts in milliseconds.",
+                                "maximum": 2147483647,
+                                "minimum": 0,
+                                "type": "integer"
+                            },
+                            "shortDelay": {
+                                "description": "Short delay between field removals in milliseconds.",
+                                "maximum": 2147483647,
+                                "minimum": 0,
+                                "type": "integer"
+                            },
+                            "fieldInternalNames": {
+                                "description": "Array of field internal names to be removed.",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "listIdentity", "fieldInternalNames"],
+                        "properties": {
+                            "shortDelay": {
+                                "description": "Short delay between field removals in milliseconds.",
+                                "maximum": 2147483647,
+                                "minimum": 0,
+                                "type": "integer"
+                            },
+                            "type": {
+                                "enum": ["RemoveFieldsFromList"],
+                                "type": "string"
+                            },
+                            "listIdentity": {
+                                "description": "The identity of the list.",
+                                "type": "string"
+                            },
+                            "attempts": {
+                                "description": "Maximum number of retry attempts for removing fields.",
+                                "maximum": 2147483647,
+                                "minimum": 1,
+                                "type": "integer"
+                            },
+                            "retryAfterMs": {
+                                "description": "Interval between retry attempts in milliseconds.",
+                                "maximum": 2147483647,
+                                "minimum": 0,
+                                "type": "integer"
+                            },
+                            "fieldInternalNames": {
+                                "description": "Array of field internal names to be removed.",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "fieldInternalNames"],
+                        "properties": {
+                            "shortDelay": {
+                                "description": "Short delay between field removals in milliseconds.",
+                                "maximum": 2147483647,
+                                "minimum": 0,
+                                "type": "integer"
+                            },
+                            "retryAfterMs": {
+                                "description": "Interval between retry attempts in milliseconds.",
+                                "maximum": 2147483647,
+                                "minimum": 0,
+                                "type": "integer"
+                            },
+                            "attempts": {
+                                "description": "Maximum number of retry attempts for removing fields.",
+                                "maximum": 2147483647,
+                                "minimum": 1,
+                                "type": "integer"
+                            },
+                            "type": {
+                                "enum": ["RemoveFieldsFromSiteColumns"],
+                                "type": "string"
+                            },
+                            "fieldInternalNames": {
+                                "description": "Array of field internal names to be removed.",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "listIdentity"],
+                        "properties": {
+                            "listIdentity": {
+                                "description": "The identity of the list.",
+                                "type": "string"
+                            },
+                            "type": {
+                                "enum": ["RemoveListIfExist"],
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "contentTypeIdentity", "requiredFieldInternalNames"],
+                        "properties": {
+                            "attempts": {
+                                "description": "Maximum number of retry attempts for updating fields.",
+                                "maximum": 2147483647,
+                                "minimum": 1,
+                                "type": "integer"
+                            },
+                            "type": {
+                                "enum": ["SetContentTypeRequiredFields"],
+                                "type": "string"
+                            },
+                            "updateChildren": {
+                                "description": "Flag to indicate whether to update child content types.",
+                                "type": "boolean"
+                            },
+                            "contentTypeIdentity": {
+                                "description": "The content Type Identity.",
+                                "type": "string"
+                            },
+                            "requiredFieldInternalNames": {
+                                "description": "Array of field internal names to be set as required.",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            "retryAfterMs": {
+                                "description": "Interval between retry attempts in milliseconds.",
+                                "maximum": 2147483647,
+                                "minimum": 0,
+                                "type": "integer"
+                            },
+                            "shortDelay": {
+                                "description": "Short delay between field updates in milliseconds.",
+                                "maximum": 2147483647,
+                                "minimum": 0,
+                                "type": "integer"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "contentTypeIdentity", "listIdentity"],
+                        "properties": {
+                            "listIdentity": {
+                                "description": "The list identity.",
+                                "type": "string"
+                            },
+                            "type": {
+                                "enum": ["SetDefaultContentTypeToList"],
+                                "type": "string"
+                            },
+                            "contentTypeIdentity": {
+                                "description": "The content Type Identity.",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "listIdentity", "indexedFieldInternalNames"],
+                        "properties": {
+                            "shortDelay": {
+                                "description": "Short delay between field updates in milliseconds.",
+                                "maximum": 2147483647,
+                                "minimum": 0,
+                                "type": "integer"
+                            },
+                            "type": {
+                                "enum": ["SetIndexedFieldsInList"],
+                                "type": "string"
+                            },
+                            "listIdentity": {
+                                "description": "The list title or ID.",
+                                "type": "string"
+                            },
+                            "attempts": {
+                                "description": "Maximum number of retry attempts for indexing fields.",
+                                "maximum": 2147483647,
+                                "minimum": 1,
+                                "type": "integer"
+                            },
+                            "retryAfterMs": {
+                                "description": "Interval between retry attempts in milliseconds.",
+                                "maximum": 2147483647,
+                                "minimum": 0,
+                                "type": "integer"
+                            },
+                            "indexedFieldInternalNames": {
+                                "description": "Array of field internal names to be indexed.",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "listIdentity", "groupTitle", "permissions"],
+                        "properties": {
+                            "listIdentity": {
+                                "description": "The identity of the list.",
+                                "type": "string"
+                            },
+                            "permissions": {
+                                "description": "Choose a permission level:\n\nFull Control: Has full control.\nDesign: Can view, add, update, delete, approve, and customize.\nEdit: Can add, edit and delete lists; can view, add, update and delete list items and documents.\nContribute: Can view, add, update, and delete list items and documents.\nRead: Can view pages and list items and download documents.\n\nYou can also provide a custom permission level.",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            "groupTitle": {
+                                "description": "Choose a group title or provide a custom one:\n\n{{AssociatedOwnerGroup}}: Default owner group.\n{{AssociatedMemberGroup}}: Default member group.\n{{AssociatedVisitorGroup}}: Default visitor group.",
+                                "type": "string"
+                            },
+                            "type": {
+                                "enum": ["SetListPermissions"],
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "listIdentity", "ratingType"],
+                        "properties": {
+                            "listIdentity": {
+                                "description": "The identity of the list.",
+                                "type": "string"
+                            },
+                            "ratingType": {
+                                "description": "The type of rating for the list.",
+                                "enum": ["Likes", "Ratings", "None"],
+                                "type": "string"
+                            },
+                            "type": {
+                                "enum": ["SetListRating"],
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "listIdentity"],
+                        "properties": {
+                            "breakRoleInheritance": {
+                                "description": "Break permissions inheritance from the parent.",
+                                "type": "boolean"
+                            },
+                            "enableCommenting": {
+                                "description": "Flag to indicate if the comments are enabled",
+                                "type": "boolean"
+                            },
+                            "readSecurity": {
+                                "description": "Specifies the Read access level for items in the list. Options are: \n1 (All users have Read access to all items) \n2 (Users have Read access only to items they create).",
+                                "enum": [1, 2],
+                                "type": "integer"
+                            },
+                            "ratingType": {
+                                "description": "The type of rating for the list.",
+                                "enum": ["Likes", "Ratings", "None"],
+                                "type": "string"
+                            },
+                            "majorVersions": {
+                                "description": "The number of major versions to keep.",
+                                "maximum": 50000,
+                                "minimum": 0,
+                                "type": "integer"
+                            },
+                            "writeSecurity": {
+                                "description": "Determines the Write permissions for items in the list. Options: \n1 (Write access to all items), \n2 (Write access only to own items), \n4 (No write access, read-only list).",
+                                "enum": [1, 2, 4],
+                                "type": "integer"
+                            },
+                            "title": {
+                                "description": "Title for the list.",
+                                "type": "string"
+                            },
+                            "listIdentity": {
+                                "description": "The identity of the list.",
+                                "type": "string"
+                            },
+                            "copyRoleAssignments": {
+                                "description": "Copy permissions from the parent when breaking inheritance.",
+                                "type": "boolean"
+                            },
+                            "hidden": {
+                                "description": "Flag to indicate if the list is hidden from the user interface.",
+                                "type": "boolean"
+                            },
+                            "folderEnable": {
+                                "description": "Flag to indicate if folder creation is enabled.",
+                                "type": "boolean"
+                            },
+                            "type": {
+                                "enum": ["SetListSettings"],
+                                "type": "string"
+                            },
+                            "description": {
+                                "description": "Description for the list.",
+                                "type": "string"
+                            },
+                            "enableMinorVersions": {
+                                "description": "Flag to indicate if minor versioning is enabled.",
+                                "type": "boolean"
+                            },
+                            "minorVersions": {
+                                "description": "The number of minor versions to keep.",
+                                "maximum": 50000,
+                                "minimum": 0,
+                                "type": "integer"
+                            },
+                            "enableContentTypes": {
+                                "description": "Flag to indicate if content types are enabled.",
+                                "type": "boolean"
+                            },
+                            "resetRoleInheritance": {
+                                "description": "Reset permissions inheritance to inherit from the parent.",
+                                "type": "boolean"
+                            },
+                            "enableVersioning": {
+                                "description": "Flag to indicate if versioning is enabled.",
+                                "type": "boolean"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "listIdentity"],
+                        "properties": {
+                            "isDefault": {
+                                "description": "Specifies whether the view is the default view.",
+                                "type": "boolean"
+                            },
+                            "type": {
+                                "enum": ["SetListView"],
+                                "type": "string"
+                            },
+                            "listIdentity": {
+                                "description": "The identity of the list.",
+                                "type": "string"
+                            },
+                            "rowLimit": {
+                                "description": "Number of rows to be displayed in a page.",
+                                "type": "integer"
+                            },
+                            "fields": {
+                                "description": "Fields to be included in the view.",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            "orderByFields": {
+                                "description": "The OrderBy fields for sorting.",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            "viewName": {
+                                "description": "The name of the view. If not specified, the default view will be used.",
+                                "type": "string"
+                            },
+                            "appendFields": {
+                                "description": "Specifies whether to append fields to the view or overwrite them.",
+                                "type": "boolean"
+                            },
+                            "groupByFields": {
+                                "description": "The GroupBy fields for grouping.",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            "isPersonal": {
+                                "description": "Specifies whether the view is a personal view.",
+                                "type": "boolean"
+                            },
+                            "aggregations": {
+                                "$ref": "./Schemes/Aggregations.schema.json"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "listIdentity"],
+                        "properties": {
+                            "activeOnly": {
+                                "description": "Optional.Include only active posts, or all. Default - all",
+                                "type": "boolean"
+                            },
+                            "contentTypeIdentity": {
+                                "description": "Optional. The identifier of the content type to filter the items to be updated. If not specified, all items in the list will be updated.",
+                                "type": "string"
+                            },
+                            "listIdentity": {
+                                "description": "The identifier (ID, Title, or Url) of the list where the items to be updated are located.",
+                                "type": "string"
+                            },
+                            "lookupListMapping": {
+                                "$ref": "./Schemes/SetLookupFieldsFromChoiceFieldsLookupListMapping.schema.json"
+                            },
+                            "type": {
+                                "enum": ["SetLookupFieldsFromChoiceFieldsBatch"],
+                                "type": "string"
+                            },
+                            "mappingData": {
+                                "$ref": "./Schemes/SetLookupFieldsFromChoiceFieldsMappingData.schema.json"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": [
+                            "type",
+                            "displayName",
+                            "internalName",
+                            "formula",
+                            "resultType"
+                        ],
+                        "properties": {
+                            "type": {
+                                "enum": ["EnsureCalculatedField"],
+                                "type": "string"
+                            },
+                            "fieldFormatter": {
+                                "$ref": "https://developer.microsoft.com/json-schemas/sp/v2/column-formatting.schema.json"
+                            },
+                            "listIdentity": {
+                                "description": "The identity of the list.",
+                                "type": "string"
+                            },
+                            "displayName": {
+                                "description": "The display name of the field.",
+                                "type": "string"
+                            },
+                            "group": {
+                                "description": "The group the field belongs to.",
+                                "type": "string"
+                            },
+                            "internalName": {
+                                "description": "The internal name of the field.",
+                                "type": "string"
+                            },
+                            "formula": {
+                                "description": "The formula for the calculated field.",
+                                "type": "string"
+                            },
+                            "resultType": {
+                                "description": "The result type of the calculated field.",
+                                "enum": ["Text", "DateTime", "Number", "Currency", "Boolean"],
+                                "type": "string"
+                            },
+                            "fieldId": {
+                                "description": "The GUID for the field.",
+                                "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "displayName", "internalName", "choices"],
+                        "properties": {
+                            "enforceUniqueValues": {
+                                "description": "Flag to enforce unique values for the field.",
+                                "type": "boolean"
+                            },
+                            "type": {
+                                "enum": ["EnsureChoiceField"],
+                                "type": "string"
+                            },
+                            "fieldFormatter": {
+                                "$ref": "https://developer.microsoft.com/json-schemas/sp/v2/column-formatting.schema.json"
+                            },
+                            "listIdentity": {
+                                "description": "The identity of the list.",
+                                "type": "string"
+                            },
+                            "defaultValue": {
+                                "description": "The default value for the field.",
+                                "type": "string"
+                            },
+                            "allowMultipleValues": {
+                                "description": "Flag to indicate if the field allows multiple choices.",
+                                "type": "boolean"
+                            },
+                            "displayName": {
+                                "description": "The display name of the field.",
+                                "type": "string"
+                            },
+                            "group": {
+                                "description": "The group the field belongs to.",
+                                "type": "string"
+                            },
+                            "internalName": {
+                                "description": "The internal name of the field.",
+                                "type": "string"
+                            },
+                            "required": {
+                                "description": "Flag to indicate if the field is required.",
+                                "type": "boolean"
+                            },
+                            "choices": {
+                                "description": "The choices for the field.",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            "fieldId": {
+                                "description": "The GUID for the field.",
+                                "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": [
+                            "type",
+                            "displayName",
+                            "internalName",
+                            "dateFormat",
+                            "friendlyDisplayFormat"
+                        ],
+                        "properties": {
+                            "enforceUniqueValues": {
+                                "description": "Flag to enforce unique values for the field.",
+                                "type": "boolean"
+                            },
+                            "type": {
+                                "enum": ["EnsureDateField"],
+                                "type": "string"
+                            },
+                            "dateFormat": {
+                                "description": "The date format: DateOnly or DateTime.",
+                                "enum": ["DateOnly", "DateTime"],
+                                "type": "string"
+                            },
+                            "listIdentity": {
+                                "description": "The identity of the list.",
+                                "type": "string"
+                            },
+                            "friendlyDisplayFormat": {
+                                "description": "The friendly display format: Relative or Disabled.",
+                                "enum": ["Relative", "Disabled"],
+                                "type": "string"
+                            },
+                            "displayName": {
+                                "description": "The display name of the field.",
+                                "type": "string"
+                            },
+                            "group": {
+                                "description": "The group the field belongs to.",
+                                "type": "string"
+                            },
+                            "internalName": {
+                                "description": "The internal name of the field.",
+                                "type": "string"
+                            },
+                            "required": {
+                                "description": "Flag to indicate if the field is required.",
+                                "type": "boolean"
+                            },
+                            "fieldFormatter": {
+                                "$ref": "https://developer.microsoft.com/json-schemas/sp/v2/column-formatting.schema.json"
+                            },
+                            "defaultValue": {
+                                "description": "The default value for the field (in ISO format: YYYY-MM-DD or YYYY-MM-DDTHH:mm:ss).",
+                                "pattern": "^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}:\\d{2})?$",
+                                "type": "string"
+                            },
+                            "fieldId": {
+                                "description": "The GUID for the field.",
+                                "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": [
+                            "type",
+                            "displayName",
+                            "internalName",
+                            "lookupListIdentity",
+                            "lookupField"
+                        ],
+                        "properties": {
+                            "enforceUniqueValues": {
+                                "description": "Flag to enforce unique values for the field.",
+                                "type": "boolean"
+                            },
+                            "type": {
+                                "enum": ["EnsureLookupField"],
+                                "type": "string"
+                            },
+                            "fieldFormatter": {
+                                "$ref": "https://developer.microsoft.com/json-schemas/sp/v2/column-formatting.schema.json"
+                            },
+                            "listIdentity": {
+                                "description": "The identity of the list.",
+                                "type": "string"
+                            },
+                            "allowMultipleValues": {
+                                "description": "Flag to indicate if the field allows multiple values.",
+                                "type": "boolean"
+                            },
+                            "displayName": {
+                                "description": "The display name of the field.",
+                                "type": "string"
+                            },
+                            "lookupField": {
+                                "description": "The internal name of the field in the lookup list.",
+                                "type": "string"
+                            },
+                            "internalName": {
+                                "description": "The internal name of the field.",
+                                "type": "string"
+                            },
+                            "lookupListIdentity": {
+                                "description": "The name of the lookup list.",
+                                "type": "string"
+                            },
+                            "required": {
+                                "description": "Flag to indicate if the field is required.",
+                                "type": "boolean"
+                            },
+                            "group": {
+                                "description": "The group the field belongs to.",
+                                "type": "string"
+                            },
+                            "fieldId": {
+                                "description": "The GUID for the field.",
+                                "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "displayName", "internalName"],
+                        "properties": {
+                            "enforceUniqueValues": {
+                                "description": "Flag to enforce unique values for the field.",
+                                "type": "boolean"
+                            },
+                            "displayName": {
+                                "description": "The display name of the field.",
+                                "type": "string"
+                            },
+                            "showAsPercentage": {
+                                "description": "Flag to indicate if the field should be shown as a percentage.",
+                                "type": "boolean"
+                            },
+                            "minValue": {
+                                "description": "The minimum allowed value for the field.",
+                                "maximum": 1.7976931348623157e308,
+                                "minimum": 0.0,
+                                "type": "integer"
+                            },
+                            "fieldId": {
+                                "description": "The GUID for the field.",
+                                "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                                "type": "string"
+                            },
+                            "defaultValue": {
+                                "description": "The default value for the field.",
+                                "maximum": 1.7976931348623157e308,
+                                "minimum": 0.0,
+                                "type": "integer"
+                            },
+                            "listIdentity": {
+                                "description": "The identity of the list.",
+                                "type": "string"
+                            },
+                            "group": {
+                                "description": "The group the field belongs to.",
+                                "type": "string"
+                            },
+                            "type": {
+                                "enum": ["EnsureNumberField"],
+                                "type": "string"
+                            },
+                            "fieldFormatter": {
+                                "$ref": "https://developer.microsoft.com/json-schemas/sp/v2/column-formatting.schema.json"
+                            },
+                            "maxValue": {
+                                "description": "The maximum allowed value for the field.",
+                                "maximum": 1.7976931348623157e308,
+                                "minimum": 0.0,
+                                "type": "integer"
+                            },
+                            "required": {
+                                "description": "Flag to indicate if the field is required.",
+                                "type": "boolean"
+                            },
+                            "internalName": {
+                                "description": "The internal name of the field.",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": [
+                            "type",
+                            "displayName",
+                            "internalName",
+                            "termGroupName",
+                            "termSetName"
+                        ],
+                        "properties": {
+                            "enforceUniqueValues": {
+                                "description": "Flag to enforce unique values for the field.",
+                                "type": "boolean"
+                            },
+                            "type": {
+                                "enum": ["EnsureTaxonomyField"],
+                                "type": "string"
+                            },
+                            "fieldFormatter": {
+                                "$ref": "https://developer.microsoft.com/json-schemas/sp/v2/column-formatting.schema.json"
+                            },
+                            "listIdentity": {
+                                "description": "The identity of the list.",
+                                "type": "string"
+                            },
+                            "defaultValue": {
+                                "description": "The default value for the field.",
+                                "type": "string"
+                            },
+                            "displayName": {
+                                "description": "The display name of the field.",
+                                "type": "string"
+                            },
+                            "group": {
+                                "description": "The group the field belongs to.",
+                                "type": "string"
+                            },
+                            "internalName": {
+                                "description": "The internal name of the field.",
+                                "type": "string"
+                            },
+                            "termGroupName": {
+                                "description": "The name of the term group.",
+                                "type": "string"
+                            },
+                            "required": {
+                                "description": "Flag to indicate if the field is required.",
+                                "type": "boolean"
+                            },
+                            "fieldId": {
+                                "description": "The GUID for the field.",
+                                "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                                "type": "string"
+                            },
+                            "termSetName": {
+                                "description": "The name of the term set.",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "displayName", "internalName"],
+                        "properties": {
+                            "enforceUniqueValues": {
+                                "description": "Flag to enforce unique values for the field.",
+                                "type": "boolean"
+                            },
+                            "type": {
+                                "enum": ["EnsureTextField"],
+                                "type": "string"
+                            },
+                            "fieldFormatter": {
+                                "$ref": "https://developer.microsoft.com/json-schemas/sp/v2/column-formatting.schema.json"
+                            },
+                            "listIdentity": {
+                                "description": "The identity of the list.",
+                                "type": "string"
+                            },
+                            "defaultValue": {
+                                "description": "The default value for the field.",
+                                "type": "string"
+                            },
+                            "displayName": {
+                                "description": "The display name of the field.",
+                                "type": "string"
+                            },
+                            "group": {
+                                "description": "The group the field belongs to.",
+                                "type": "string"
+                            },
+                            "internalName": {
+                                "description": "The internal name of the field.",
+                                "type": "string"
+                            },
+                            "required": {
+                                "description": "Flag to indicate if the field is required.",
+                                "type": "boolean"
+                            },
+                            "fieldId": {
+                                "description": "The GUID for the field.",
+                                "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "displayName", "internalName", "userSelectionMode"],
+                        "properties": {
+                            "enforceUniqueValues": {
+                                "description": "Flag to enforce unique values for the field.",
+                                "type": "boolean"
+                            },
+                            "type": {
+                                "enum": ["EnsureUserField"],
+                                "type": "string"
+                            },
+                            "fieldFormatter": {
+                                "$ref": "https://developer.microsoft.com/json-schemas/sp/v2/column-formatting.schema.json"
+                            },
+                            "listIdentity": {
+                                "description": "The identity of the list.",
+                                "type": "string"
+                            },
+                            "allowMultipleValues": {
+                                "description": "Flag to indicate if the field allows multiple users.",
+                                "type": "boolean"
+                            },
+                            "displayName": {
+                                "description": "The display name of the field.",
+                                "type": "string"
+                            },
+                            "group": {
+                                "description": "The group the field belongs to.",
+                                "type": "string"
+                            },
+                            "internalName": {
+                                "description": "The internal name of the field.",
+                                "type": "string"
+                            },
+                            "required": {
+                                "description": "Flag to indicate if the field is required.",
+                                "type": "boolean"
+                            },
+                            "userSelectionMode": {
+                                "description": "User selection mode.",
+                                "enum": ["PeopleOnly", "PeopleAndGroups"],
+                                "type": "string"
+                            },
+                            "fieldId": {
+                                "description": "The GUID for the field.",
+                                "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "required": ["type", "displayName", "internalName"],
+                        "properties": {
+                            "type": {
+                                "enum": ["EnsureYesNoField"],
+                                "type": "string"
+                            },
+                            "fieldFormatter": {
+                                "$ref": "https://developer.microsoft.com/json-schemas/sp/v2/column-formatting.schema.json"
+                            },
+                            "listIdentity": {
+                                "description": "The identity of the list.",
+                                "type": "string"
+                            },
+                            "defaultValue": {
+                                "description": "The default value for the field.",
+                                "type": "boolean"
+                            },
+                            "displayName": {
+                                "description": "The display name of the field.",
+                                "type": "string"
+                            },
+                            "group": {
+                                "description": "The group the field belongs to.",
+                                "type": "string"
+                            },
+                            "internalName": {
+                                "description": "The internal name of the field.",
+                                "type": "string"
+                            },
+                            "required": {
+                                "description": "Flag to indicate if the field is required.",
+                                "type": "boolean"
+                            },
+                            "fieldId": {
+                                "description": "The GUID for the field.",
+                                "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "type": "array"
+        },
+        "attempts": {
+            "type": "integer"
+        }
+    },
+    "required": ["actions"],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+}

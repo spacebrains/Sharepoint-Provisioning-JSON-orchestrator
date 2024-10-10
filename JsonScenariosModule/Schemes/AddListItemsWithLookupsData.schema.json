@@ -1,0 +1,36 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"type": "array",
+	"items": {
+		"type": "object",
+		"properties": {
+			"listIdentity": {
+				"type": "string",
+				"description": "The identity of the SharePoint list where the item will be added. This can be either the list's title, URL or GUID."
+			},
+			"contentType": {
+				"type": "string",
+				"description": "The content type of the SharePoint list item."
+			},
+			"fieldValues": {
+				"description": "An object containing the internal names of the fields and their values. If a field is a reference to another item, the value should be in the format 'ref:<Reference ID>'"
+			},
+			"refId": {
+				"type": "string",
+				"description": "A unique identifier for the item being added. This identifier is used to resolve references between items."
+			}
+		},
+		"required": ["listIdentity", "fieldValues"],
+		"examples": [
+			{
+				"listIdentity": "Tasks",
+				"fieldValues": {
+					"Title": "Task 1",
+					"AssignedTo": "ref:User1"
+				},
+				"refId": "Task1"
+			}
+		]
+	},
+	"description": "An array of objects, each representing an item to be added to a SharePoint list. Items can reference each other using the 'ref:<Reference ID>' notation in field values."
+}

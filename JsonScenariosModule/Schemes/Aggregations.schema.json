@@ -1,0 +1,23 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"type": "array",
+	"title": "Aggregations",
+	"description": "An array of aggregation objects for the view.",
+	"items": {
+		"type": "object",
+		"properties": {
+			"fieldInternalName": {
+				"type": "string",
+				"description": "The internal name of the field.",
+				"minLength": 1
+			},
+			"type": {
+				"type": "string",
+				"description": "The aggregation type.",
+				"enum": ["COUNT", "SUM", "AVG", "MAX", "MIN", "STDEV", "VAR"]
+			}
+		},
+		"required": ["fieldInternalName", "type"]
+	},
+	"minItems": 1
+}

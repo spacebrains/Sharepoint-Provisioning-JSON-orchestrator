@@ -1,0 +1,11 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"type": "object",
+	"patternProperties": {
+		"^[a-zA-Z0-9_]+$": {
+			"type": "string",
+			"description": "The name of the lookup list corresponding to the lookup field name (property key)."
+		}
+	},
+	"additionalProperties": false
+}
