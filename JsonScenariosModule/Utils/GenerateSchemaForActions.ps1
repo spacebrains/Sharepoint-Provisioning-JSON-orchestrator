@@ -87,7 +87,8 @@ function GenerateSchemaForActions {
             "WarningAction",
             "ErrorAction",
             "Debug",
-            "Verbose"
+            "Verbose", 
+            "ProgressAction"
         )
         $parameters = $functionInfo.Parameters.Values | Where-Object { $_.Name -notin $excludedParameters }
 
@@ -269,3 +270,12 @@ function GetFullTypeDetails {
 
     return $type, $pattern, $itemsType
 }
+
+$scriptPath = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
+    
+# Define constants
+$ActionsFolderPath = Join-Path (Split-Path $scriptPath) "Actions"  
+$OutputFolderPath = Split-Path $scriptPath 
+
+# Run the function
+GenerateSchemaForActions -ActionsFolderPath $ActionsFolderPath -OutputFolderPath $OutputFolderPath

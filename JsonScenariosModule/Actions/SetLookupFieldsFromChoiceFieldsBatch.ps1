@@ -1,35 +1,3 @@
-
-$scriptPath = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
-
-
-try {
-    $parent = (get-item $scriptPath).Parent.Parent.FullName
-    $logFilePath = $parent + "/mappingIssues.txt"
-    if ($null -eq (Get-Item -Path $logFilePath -ErrorAction SilentlyContinue)) {
-        New-Item -Path $logFilePath -ItemType File -Force | Out-Null
-    }
-}
-catch {
-    
-}
-function AppendLog {
-    param (
-        [Parameter(Mandatory = $true)][string] $MessageText,
-        [Parameter(Mandatory = $true)][string] $PageUrl
-    )   
-    
-    try {
-        $TimeStamp = (Get-Date).toString("dd/MM/yyyy HH:mm:ss:fff tt")
-
-        $Line = "[$($TimeStamp)] :: $($PageUrl) :: $($MessageText)"
-
-        Add-content -Path $logFilePath -Value $Line
-    }
-    catch {
-        
-    }
-}
-
 function SetLookupFieldsFromChoiceFieldsBatch {
     param (
         [Parameter(Mandatory = $true, HelpMessage = "The identifier (ID, Title, or Url) of the list where the items to be updated are located.")]
@@ -135,14 +103,12 @@ function SetLookupFieldsFromChoiceFieldsBatch {
                     }
                     else {
                         Write-warning "The $($itemChoiceField) field was not mapped with lookup for idea $($item.Id)."
-                        AppendLog -MessageText "$($itemChoiceField) field was not mapped with lookup" -PageUrl $item.FieldValues.FileRef
                     }
                 }
             }
             catch {
                 Write-warning  $_.Exception
                 Write-warning "The $($lookupField) field was not updated for idea $($item.Id)."
-                AppendLog -MessageText "$($lookupField) field was not updated" -PageUrl $item.FieldValues.FileRef
             }
         }
 

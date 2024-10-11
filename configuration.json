@@ -1,24 +1,4 @@
 {
   "$schema": "./JsonScenariosModule/json-scenarios.scheme.json",
-  "actions": [
-    {
-      "type": "SetContentTypeFieldOrder",
-      "contentTypeIdentity": "0x0100DD2DDC603C5645838740751A8E604D66",
-      "fieldOrder": [
-        "Title",
-        "TeamTalk_MessagePreviewText",
-        "TeamTalk_MessageContent",
-        "TeamTalk_ActionLinkUrl",
-        "TeamTalk_ActionLinkLabel",
-        "TeamTalk_MessageImage",
-        "TeamTalk_MessageImageAlt",
-        "TeamTalk_MessageOwner",
-        "TeamTalk_AudienceGroups",
-        "TeamTalk_StrategicFocuses",
-        "TeamTalk_Critical",
-        "TeamTalk_PublishingStatus",
-        "TeamTalk_PublishDate"
-      ]
-    }
-  ]
+  "actions": []
 }

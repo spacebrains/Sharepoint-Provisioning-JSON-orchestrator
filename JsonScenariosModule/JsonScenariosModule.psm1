@@ -5,6 +5,3 @@ Get-ChildItem -Path "$($PSScriptRoot)\Actions" -Filter *.ps1 -Recurse | ForEach-
 
 # Import the RunJsonScenariosOrchestrator function
 . "$($PSScriptRoot)\RunJsonScenariosOrchestrator.ps1"
-
-# Import the RunJsonScenariosOrchestrator function
-. "$($PSScriptRoot)\Utils\GetFunctionHashValue.ps1"

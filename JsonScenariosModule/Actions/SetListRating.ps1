@@ -14,7 +14,6 @@ function SetListRating {
     $List = $Ctx.Web.Lists.GetByTitle($ListIdentity)
     $Ctx.Load($List)
     $Ctx.ExecuteQuery()
-    
 
     # Define rating site columns IDs
     $AverageRatingFieldID = [guid]"5a14d1ab-1513-48c7-97b3-657a5ba6c742"
